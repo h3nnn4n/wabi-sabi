@@ -16,7 +16,7 @@ jobs:
         env:
           POSTGRES_USER: postgres
           POSTGRES_PASSWORD: postgres
-          POSTGRES_DB: github_actions
+          POSTGRES_DB: postgres
         ports:
           - 5432:5432
         options: >-
@@ -46,6 +46,9 @@ jobs:
 
     - name: Run migrations
       run: pipenv run python manage.py migrate
+
+    - name: Create db
+      run: createdb postgres
 
     - name: Run Tests
       env:
