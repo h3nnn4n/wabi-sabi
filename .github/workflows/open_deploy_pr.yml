@@ -19,7 +19,6 @@ jobs:
           source_branch: "master"
           destination_branch: "production"
           pr_title: "Production Deploy"
-          pr_body: ":crown: An automated PR"
-          pr_label: "production-deploy"
+          pr_body: "Automated Production Deploy Pull Request. Opened with Github Actions."
+          pr_label: "Production Deploy"
           pr_allow_empty: true
-          github_token: ${{ secrets.GITHUB_TOKEN }}
