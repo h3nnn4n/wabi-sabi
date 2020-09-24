@@ -46,9 +46,9 @@ jobs:
 
     - name: Run migrations
       env:
-        PSQL_NAME: $${{ secrets.PSQL_NAME }}
-        PSQL_USER: $${{ secrets.PSQL_USER }}
-        PSQL_PASSWORD: $${{ secrets.PSQL_PASSWORD }}
+        PSQL_NAME: ${{ secrets.PSQL_NAME }}
+        PSQL_USER: ${{ secrets.PSQL_USER }}
+        PSQL_PASSWORD: ${{ secrets.PSQL_PASSWORD }}
         PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
       run: pipenv run python manage.py migrate
 
@@ -57,9 +57,9 @@ jobs:
 
     - name: Run Tests
       env:
-        PSQL_NAME: $${{ secrets.PSQL_NAME }}
-        PSQL_USER: $${{ secrets.PSQL_USER }}
-        PSQL_PASSWORD: $${{ secrets.PSQL_PASSWORD }}
+        PSQL_NAME: ${{ secrets.PSQL_NAME }}
+        PSQL_USER: ${{ secrets.PSQL_USER }}
+        PSQL_PASSWORD: ${{ secrets.PSQL_PASSWORD }}
         PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
       run: |
         pipenv run python manage.py test

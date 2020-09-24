@@ -35,6 +35,7 @@ ALLOWED_HOSTS = []
 
 INSTALLED_APPS = [
     'polls.apps.PollsConfig',
+    'health.apps.HealthConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -80,9 +81,9 @@ WSGI_APPLICATION = 'web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('PSQL_NAME'),
-        'USER': os.environ.get('PSQL_USER'),
-        'PASSWORD': os.environ.get('PSQL_PASSWORD'),
+        'NAME': os.environ.get('PSQL_NAME', 'postgres'),
+        'USER': os.environ.get('PSQL_USER', 'postgres'),
+        'PASSWORD': os.environ.get('PSQL_PASSWORD', 'postgres'),
         'HOST': os.environ.get('PSQL_HOST', 'localhost'),
         'PORT': os.environ.get('PSQL_PORT', '5432'),
     }
