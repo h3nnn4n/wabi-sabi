@@ -10,44 +10,6 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - name: Checkout code
-      uses: actions/checkout@v2
-
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v1
-      with:
-        python-version: 3.7
-
-    - name: psycopg2 prerequisites
-      run: sudo apt-get install python-dev libpq-dev
-
-    - name: Install pipenv
-      uses: dschep/install-pipenv-action@v1
-
-    - name: Install dependencies
-      run: |
-        pipenv install --dev
-
-    - name: Run migrations
-      env:
-        PSQL_NAME: $${{ secrets.PSQL_NAME }}
-        PSQL_USER: $${{ secrets.PSQL_USER }}
-        PSQL_PASSWORD: $${{ secrets.PSQL_PASSWORD }}
-        PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
-      run: pipenv run python manage.py migrate
-
-    - name: Create staticfiles
-      run: pipenv run python manage.py collectstatic
-
-    - name: Run Tests
-      env:
-        PSQL_NAME: $${{ secrets.PSQL_NAME }}
-        PSQL_USER: $${{ secrets.PSQL_USER }}
-        PSQL_PASSWORD: $${{ secrets.PSQL_PASSWORD }}
-        PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
-      run: |
-        pipenv run python manage.py test
-
     - name: Deploy
       uses: akhileshns/heroku-deploy@v3.5.6
       with:
