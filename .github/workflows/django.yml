@@ -45,6 +45,11 @@ jobs:
         pipenv install --dev
 
     - name: Run migrations
+      env:
+        PSQL_NAME: postgres
+        PSQL_USER: postgres
+        PSQL_PASSWORD: postgres
+        PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
       run: pipenv run python manage.py migrate
 
     - name: Run Tests
