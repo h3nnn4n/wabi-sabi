@@ -26,18 +26,27 @@ jobs:
           --health-retries 5
 
     steps:
+    - name: Checkout code
     - uses: actions/checkout@v2
+
     - name: Set up Python 3.7
       uses: actions/setup-python@v1
       with:
         python-version: 3.7
+
+    - name: psycopg2 prerequisites
+      run: sudo apt-get install python-dev libpq-dev
+
     - name: Install pipenv
       uses: dschep/install-pipenv-action@v1
+
     - name: Install dependencies
       run: |
         pipenv install --dev
+
     - name: Run migrations
       run: pipenv run python manage.py migrate
+
     - name: Run Tests
       env:
         DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
