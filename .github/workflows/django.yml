@@ -52,6 +52,9 @@ jobs:
         PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
       run: pipenv run python manage.py migrate
 
+    - name: Create staticfiles
+      run: pipenv run python manage.py collectstatic
+
     - name: Run Tests
       env:
         PSQL_NAME: postgres
