@@ -47,11 +47,11 @@ jobs:
     - name: Run migrations
       run: pipenv run python manage.py migrate
 
-    - name: Create db
-      run: createdb postgres
-
     - name: Run Tests
       env:
-        DATABASE_URL: 'postgres://postgres:postgres@localhost:${{ job.services.postgres.ports[5432] }}/postgres'
+        PSQL_NAME: postgres
+        PSQL_USER: postgres
+        PSQL_PASSWORD: postgres
+        PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
       run: |
         pipenv run python manage.py test

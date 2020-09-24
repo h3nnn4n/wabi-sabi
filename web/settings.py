@@ -79,26 +79,13 @@ WSGI_APPLICATION = 'web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': 'web_app',
-        'USER': 'web_app',
-        # FIXME
-        'PASSWORD': 'password123',
-        'HOST': 'localhost',
-        'PORT': '',
+        'NAME': os.environ.get('PSQL_NAME', 'web_app'),
+        'USER': os.environ.get('PSQL_USER', 'web_app'),
+        'PASSWORD': os.environ('PSQL_PASSWORD', 'password123'),
+        'HOST': os.environ.get('PSQL_HOST', 'localhost'),
+        'PORT': os.environ.get('PSQL_PORT', '5432'),
     }
 }
-
-if os.environ.get('GITHUB_WORKFLOW'):
-    DATABASES = {
-        'default': {
-            'ENGINE': 'django.db.backends.postgresql_psycopg2',
-            'NAME': 'postgres',
-            'USER': 'postgres',
-            'PASSWORD': 'postgres',
-            'HOST': 'localhost',
-            'PORT': '5432',
-        }
-    }
 
 
 # Password validation
