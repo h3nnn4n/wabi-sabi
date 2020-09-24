@@ -22,3 +22,4 @@ jobs:
           pr_body: "Automated Production Deploy Pull Request. Opened with Github Actions."
           pr_label: "Production Deploy"
           pr_allow_empty: true
+          github_token: ${{ secrets.GITHUB_TOKEN }}
