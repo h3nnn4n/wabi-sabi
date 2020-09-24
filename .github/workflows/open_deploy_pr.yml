@@ -1,0 +1,29 @@
+name: Create production PR
+
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  createPR:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v2
+        with:
+          ref: production
+
+      - name: Reset master branch
+        run: |
+          git fetch origin master:master
+          git reset --hard master
+
+      - name: Create Pull Request
+        uses: peter-evans/create-pull-request@v3
+        with:
+          branch: production
+          title: Production Deploy
+          body: This PR has been automaticaly created using Github Actions
+          base: master
+          labels: production deploy
