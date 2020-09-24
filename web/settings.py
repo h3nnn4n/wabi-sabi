@@ -80,9 +80,9 @@ WSGI_APPLICATION = 'web.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql_psycopg2',
-        'NAME': os.environ.get('PSQL_NAME', 'web_app'),
-        'USER': os.environ.get('PSQL_USER', 'web_app'),
-        'PASSWORD': os.environ.get('PSQL_PASSWORD', 'password123'),
+        'NAME': os.environ.get('PSQL_NAME'),
+        'USER': os.environ.get('PSQL_USER'),
+        'PASSWORD': os.environ.get('PSQL_PASSWORD'),
         'HOST': os.environ.get('PSQL_HOST', 'localhost'),
         'PORT': os.environ.get('PSQL_PORT', '5432'),
     }
