@@ -5,12 +5,14 @@ verify_ssl = true
 
 [dev-packages]
 pylint = "*"
+ipdb = "*"
 
 [packages]
 django = "*"
 psycopg2 = "*"
 gunicorn = "*"
 django-heroku = "*"
+celery = "*"
 
 [requires]
 python_version = "3.7"

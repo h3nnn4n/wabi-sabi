@@ -128,5 +128,8 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 
+# Celery configs
+CELERY_BROKER_URL = 'amqp://localhost'
+
 # Activate Django-Heroku
 django_heroku.settings(locals())
