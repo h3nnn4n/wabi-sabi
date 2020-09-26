@@ -1,0 +1,29 @@
+{% load static %}
+
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <script type="text/javascript" src="{% static 'main.js' %}"></script>
+
+    <title>{% block title %}Title here {% endblock title %}</title>
+  </head>
+
+  <body>
+      {% block navbar %}{% endblock navbar %}
+
+    <div id="site-wrapper" class="container-fluid">
+      {% block content %}
+      content here
+      {% endblock content %}
+    </div>
+
+    <footer class="page-footer font-small blue fixed-bottom">
+      <div class="footer-copyright text-center py-3">© 2020 Copyright:
+        <a href="https://h3nnn4n.me"> h3nnn4n</a>
+      </div>
+    </footer>
+  </body>
+</html>

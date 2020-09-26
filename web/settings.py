@@ -60,7 +60,7 @@ ROOT_URLCONF = 'web.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'web', 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -122,6 +122,10 @@ USE_I18N = True
 USE_L10N = True
 
 USE_TZ = True
+
+
+# Redirect to home URL after login (Default redirects to /accounts/profile/)
+LOGIN_REDIRECT_URL = '/habits/'
 
 
 # Static files (CSS, JavaScript, Images)
