@@ -1,31 +1,17 @@
-{% load static %}
+{% extends 'polls/base.html' %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block title %}Home {% endblock title %}
 
-    <script type="text/javascript" src="{% static 'main.js' %}"></script>
-
-    <title>
-      Polls
-    </title>
-  </head>
-
-  <body>
-
-    {% if latest_question_list %}
-    <ul class="list-group">
-      {% for question in latest_question_list %}
-      <li class="list-group-item">
-        <a class="" href="{% url 'polls:detail' question.id %}" role="button">{{ question.question_text }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-    {% else %}
-    <p>No polls are available.</p>
-    {% endif %}
-
-  </body>
-</html>
+{% block content %}
+{% if latest_question_list %}
+<ul class="list-group">
+  {% for question in latest_question_list %}
+  <li class="list-group-item">
+    <a class="" href="{% url 'polls:detail' question.id %}" role="button">{{ question.question_text }}</a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No polls are available.</p>
+{% endif %}
+{% endblock content %}

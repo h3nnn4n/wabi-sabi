@@ -1,33 +1,20 @@
+{% extends 'polls/base.html' %}
 
-{% load static %}
+{% block title %}Results {% endblock title %}
 
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+{% block content %}
 
-    <script type="text/javascript" src="{% static 'main.js' %}"></script>
+<h1>{{ question.question_text }}</h1>
 
-    <title>
-      Polls
-    </title>
-  </head>
+<ul class="list-group">
+  {% for choice in question.choice_set.all %}
+  <li class="list-group-item">
+    <span class="badge badge-primary badge-pill">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
+    {{ choice.choice_text }}
+  </li>
+  {% endfor %}
+</ul>
 
-  <body>
+<a href="{% url 'polls:detail' question.id %}">Vote again?</a>
 
-    <h1>{{ question.question_text }}</h1>
-
-    <ul class="list-group">
-      {% for choice in question.choice_set.all %}
-      <li class="list-group-item">
-        <span class="badge badge-primary badge-pill">{{ choice.votes }} vote{{ choice.votes|pluralize }}</span>
-        {{ choice.choice_text }}
-      </li>
-      {% endfor %}
-    </ul>
-
-    <a href="{% url 'polls:detail' question.id %}">Vote again?</a>
-
-  </body>
-</html>
+{% endblock content %}
