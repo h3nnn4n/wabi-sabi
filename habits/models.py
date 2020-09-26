@@ -17,6 +17,9 @@ class Habit(models.Model):
     def __str__(self):
         return str(self.name)
 
+    def events(self):
+        return self.event_set.all()
+
 
 class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
