@@ -4,7 +4,32 @@ from django.test import TestCase
 from django.urls import reverse
 from django.utils import timezone
 
-from .models import Question
+from .models import Question, Choice
+from .tasks import random_vote_task
+
+
+class RandomVoteTaskTests(TestCase):
+    def test_increases_vote_by_one(self):
+        question = Question(question_text='test?', pub_date=timezone.now())
+        question.save()
+
+        Choice(choice_text='yes', question=question).save()
+        Choice(choice_text='no', question=question).save()
+
+        vote_count_before = sum(Choice.objects.all().values_list('votes', flat=True))
+
+        random_vote_task()
+
+        vote_count_after = sum(Choice.objects.all().values_list('votes', flat=True))
+        self.assertEqual(vote_count_after, vote_count_before + 1)
+
+    def test_does_nothing_if_there_are_no_objects(self):
+        vote_count_before = sum(Choice.objects.all().values_list('votes', flat=True))
+
+        random_vote_task()
+
+        vote_count_after = sum(Choice.objects.all().values_list('votes', flat=True))
+        self.assertEqual(vote_count_after, vote_count_before)
 
 
 class QuestionModelTests(TestCase):

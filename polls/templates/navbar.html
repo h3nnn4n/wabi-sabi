@@ -1,0 +1,49 @@
+<nav class="navbar navbar-expand-lg navbar-dark bg-primary">
+  <a class="navbar-brand" href="#">Polls</a>
+
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="/polls/">Home</a>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Polls
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          {% if latest_question_list %}
+          {% for question in latest_question_list %}
+            <a class="dropdown-item" href="{% url 'polls:detail' question.id %}" role="button">
+              {{ question.question_text }}
+            </a>
+          {% endfor %}
+          {% else %}
+          <a class="dropdown-item disabled" href="#">
+            No polls are available.
+          </a>
+          {% endif %}
+        </div>
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Results
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+          {% if latest_question_list %}
+          {% for question in latest_question_list %}
+            <a class="dropdown-item" href="{% url 'polls:results' question.id %}" role="button">
+              {{ question.question_text }}
+            </a>
+          {% endfor %}
+          {% else %}
+          <a class="dropdown-item disabled" href="#">
+            No polls are available.
+          </a>
+          {% endif %}
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>
