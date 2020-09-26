@@ -1,6 +1,6 @@
 from django.views import generic
 
-from .models import Habit, Event, User
+from .models import Habit, Event
 
 
 class IndexView(generic.ListView):
