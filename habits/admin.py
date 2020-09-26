@@ -3,7 +3,7 @@ from django.contrib.contenttypes.models import ContentType
 from django.urls import reverse
 from django.utils.html import format_html
 
-from .models import Event, Habit, User
+from .models import Event, Habit
 
 
 # Copy paste from https://stackoverflow.com/a/62434674
@@ -24,7 +24,7 @@ def linkify(field_name):
 
 class EventInline(admin.TabularInline):
     model = Event
-    extra = 2
+    extra = 0
 
 
 class HabitAdmin(admin.ModelAdmin):
@@ -44,6 +44,5 @@ class EventAdmin(admin.ModelAdmin):
     ]
 
 
-admin.site.register(User)
 admin.site.register(Habit, HabitAdmin)
 admin.site.register(Event, EventAdmin)

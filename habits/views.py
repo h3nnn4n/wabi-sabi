@@ -1,6 +1,6 @@
 from django.views import generic
 
-from .models import Habit, Event, User
+from .models import Habit
 
 
 class IndexView(generic.ListView):
@@ -11,7 +11,16 @@ class IndexView(generic.ListView):
         """
         Returns the most recently created habits
         """
-        return Habit.objects.order_by('-created_at')[:5]
+        if self.request.user.is_authenticated:
+            return Habit \
+                    .objects \
+                    .filter(user=self.request.user.id) \
+                    .order_by('-created_at')
+
+        return Habit \
+                .objects \
+                .filter(public=True) \
+                .order_by('-created_at')[:10]
 
 
 class HabitView(generic.DetailView):
