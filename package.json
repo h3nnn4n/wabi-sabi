@@ -1,0 +1,33 @@
+{
+  "name": "wabi-sabi",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/h3nnn4n/wabi-sabi.git",
+  "author": "h3nnn4n <uber.renan@gmail.com>",
+  "license": "MIT",
+  "private": true,
+  "scripts": {
+    "dev-server": "webpack-dev-server",
+    "build": "webpack --config webpack.config.js"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.11.6",
+    "babel-loader": "^8.1.0",
+    "webpack": "^4.44.2",
+    "webpack-cli": "^3.3.12",
+    "webpack-dev-server": "^3.11.0"
+  },
+  "dependencies": {
+    "autoprefixer": "^10.0.0",
+    "bootstrap": "^4.5.2",
+    "css-loader": "^4.3.0",
+    "jquery": "^3.5.1",
+    "node-sass": "^4.14.1",
+    "popper.js": "^1.16.1",
+    "postcss-load": "^0.1.6",
+    "postcss-loader": "^4.0.2",
+    "sass": "^1.26.11",
+    "sass-loader": "^10.0.2",
+    "style-loader": "^1.2.1"
+  }
+}

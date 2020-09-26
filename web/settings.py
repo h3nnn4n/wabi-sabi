@@ -126,6 +126,13 @@ USE_TZ = True
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.1/howto/static-files/
 
+PROJECT_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+
+STATICFILES_DIRS = [os.path.join(PROJECT_DIR, 'web', 'static')]
+STATIC_ROOT = os.path.join(PROJECT_DIR, 'static_collected')
+
+STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesStorage'
+
 STATIC_URL = '/static/'
 
 # Celery configs
