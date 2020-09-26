@@ -27,3 +27,12 @@ class Event(models.Model):
 
     def __str__(self):
         return f'{self.habit.name}: {self.notes or "n/a"}'
+
+    # pylint: disable=signature-differs
+    def save(self, *args, **kwargs):
+        try:
+            self.user
+        except Event.user.RelatedObjectDoesNotExist:
+            self.user = self.habit.user
+
+        super().save(*args, **kwargs)
