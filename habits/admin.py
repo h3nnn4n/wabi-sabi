@@ -24,7 +24,7 @@ def linkify(field_name):
 
 class EventInline(admin.TabularInline):
     model = Event
-    extra = 2
+    extra = 0
 
 
 class HabitAdmin(admin.ModelAdmin):

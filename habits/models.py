@@ -22,7 +22,7 @@ class Event(models.Model):
     id = models.UUIDField(primary_key=True, default=uuid.uuid4, editable=False)
     habit = models.ForeignKey(Habit, on_delete=models.CASCADE, null=False, blank=False)
     user = models.ForeignKey(User, on_delete=models.CASCADE, null=False, blank=False)
-    notes = models.CharField(max_length=1024, blank=True)
+    notes = models.CharField(max_length=1024, blank=False, default=' - ')
     created_at = models.DateTimeField()
 
     def __str__(self):
