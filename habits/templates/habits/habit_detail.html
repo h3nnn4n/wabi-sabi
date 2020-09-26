@@ -1,0 +1,35 @@
+{% extends 'Habits/base.html' %}
+
+{% block title %}Habit {{habit.name}} {% endblock title %}
+
+
+{% block content %}
+
+<h1>
+  {{habit.name}}
+</h1>
+
+Latest events:
+
+{% if habit.events %}
+<ul class="list-group">
+  {% for event in habit.events %}
+  <li class="list-group-item">
+    <div class="container">
+      <div class="row align-items-start justify-content-start">
+        <div class="col-3">
+          {{ event.created_at }}
+        </div>
+        <div class="col-9">
+          {{ event.notes }}
+        </div>
+      </div>
+    </div>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+You never did this :/
+{% endif %}
+
+{% endblock content %}
