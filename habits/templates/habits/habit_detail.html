@@ -29,7 +29,11 @@ Latest events:
   {% endfor %}
 </ul>
 {% else %}
-You never did this :/
+You never did this. Why do you now?
 {% endif %}
+
+<a class="" href="{% url 'habits:new_event' habit.id  %}">
+  New Event
+</a>
 
 {% endblock content %}
