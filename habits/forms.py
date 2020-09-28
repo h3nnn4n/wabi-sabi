@@ -6,4 +6,4 @@ class EventForm(forms.ModelForm):
 
     class Meta:
         model = Event
-        fields = ['habit', 'notes']
+        fields = ['notes']

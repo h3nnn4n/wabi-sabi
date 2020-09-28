@@ -74,12 +74,15 @@ def new_event(request, habit_id):
     if not request.user.is_authenticated:
         return redirect('habits:detail', pk=habit_id)
 
+    habit = Habit.objects.get(pk=habit_id)
+
     if request.method == 'POST':
         form = EventForm(request.POST)
 
         if form.is_valid():
             event = form.save(commit=False)
             event.user = request.user
+            event.habit = habit
             event.created_at = timezone.now()
             event.save()
 
@@ -87,4 +90,4 @@ def new_event(request, habit_id):
     else:
         form = EventForm()
 
-    return render(request, 'habits/new_event.html', {'form': form})
+    return render(request, 'habits/new_event.html', {'form': form, 'habit': habit})
