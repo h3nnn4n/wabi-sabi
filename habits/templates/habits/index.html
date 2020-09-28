@@ -1,0 +1,31 @@
+{% extends 'habits/base.html' %}
+
+{% block title %}Home {% endblock title %}
+
+
+{% block content %}
+
+<h1>Habits</h1>
+{% if latest_habits_list %}
+<ul class="list-group">
+  {% for habit in latest_habits_list %}
+  <li class="list-group-item">
+    <a class="" href="{% url 'habits:detail' habit.id %}" role="button">
+      {{ habit.name }}
+    </a>
+  </li>
+  {% endfor %}
+</ul>
+{% else %}
+<p>No habits :(</p>
+{% endif %}
+
+<br>
+
+{% if user.is_authenticated %}
+  <a class="" href="{% url 'habits:new_habit' %}">
+    New habit
+  </a>
+{% endif %}
+
+{% endblock content %}
