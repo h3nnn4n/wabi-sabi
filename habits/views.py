@@ -44,9 +44,12 @@ class HabitNewView(generic.CreateView):
         'public',
     ]
 
-    def dispatch(self, request):
+    def dispatch(self, request, *args, **kwargs):
         if not request.user.is_authenticated:
             return redirect('habits:index')
+
+        # Not sure if this is a good idea or not
+        return super().dispatch(request)
 
 
 def create_habit(request):
