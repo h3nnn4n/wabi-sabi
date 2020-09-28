@@ -78,3 +78,29 @@ class HabitViewTests(TestCase):
                 '<Habit: private ninja secret training>',
             ]
         )
+
+
+class NewHabitViewTests(TestCase):
+    def test_unauthorized_user_calling_new(self):
+        """
+        Ensure that an unauthorized user cannot create a new habit
+        """
+        response = self.client.get(reverse('habits:new_habit'))
+
+        self.assertRedirects(response, reverse('habits:index'))
+
+
+class NewEventViewTests(TestCase):
+    def test_unauthorized_user_calling_new(self):
+        """
+        Ensure that an unauthorized user cannot create a new habit
+        """
+        user = User(first_name='test', last_name='user', email='test@user.com')
+        user.save()
+
+        habit = Habit(user=user, name='testing habit', created_at=timezone.now())
+        habit.save()
+
+        response = self.client.get(reverse('habits:new_event', kwargs={'habit_id': habit.id}))
+
+        self.assertRedirects(response, reverse('habits:detail', kwargs={'pk': habit.id}))

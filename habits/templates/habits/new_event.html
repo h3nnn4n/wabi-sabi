@@ -1,0 +1,12 @@
+{% extends 'habits/base.html' %}
+
+{% block title %}New Habit Event{% endblock %}
+
+{% block content %}
+<h2>New event for: {{ habit.name }}</h2>
+<form method="POST" class="post-form">
+  {% csrf_token %}
+  {% include 'habits/bs4_form.html' with form=form %}
+  <button type="submit" class="save btn btn-primary">Save</button>
+</form>
+{% endblock %}

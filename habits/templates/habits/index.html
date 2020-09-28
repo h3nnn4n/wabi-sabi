@@ -4,6 +4,7 @@
 
 
 {% block content %}
+
 <h1>Habits</h1>
 {% if latest_habits_list %}
 <ul class="list-group">
@@ -18,4 +19,13 @@
 {% else %}
 <p>No habits :(</p>
 {% endif %}
+
+<br>
+
+{% if user.is_authenticated %}
+  <a class="" href="{% url 'habits:new_habit' %}">
+    New habit
+  </a>
+{% endif %}
+
 {% endblock content %}

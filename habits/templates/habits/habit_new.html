@@ -1,0 +1,27 @@
+{% extends 'habits/base.html' %}
+
+{% block title %}New Habit {% endblock title %}
+
+{% block content %}
+
+<br>
+
+<form action="{% url 'habits:create_habit' %}" method="post">
+  {% csrf_token %}
+
+  {% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+  <div class="form-group">
+    <label for="id_name">Habit Name</label>
+    <input class="form-control" id="id_name" name="name" value="{{ habit.name }}">
+  </div>
+
+  <div class="form-group form-check">
+    <input type="checkbox" class="form-check-input" id="id_public" name="public">
+    <label class="form-check-label" for="id_public">Public</label>
+  </div>
+
+  <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock content %}
