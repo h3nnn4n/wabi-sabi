@@ -22,8 +22,10 @@
 
 <br>
 
-<a class="" href="{% url 'habits:new_habit' %}">
-  New habit
-</a>
+{% if user.is_authenticated %}
+  <a class="" href="{% url 'habits:new_habit' %}">
+    New habit
+  </a>
+{% endif %}
 
 {% endblock content %}

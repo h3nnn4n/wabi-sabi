@@ -44,6 +44,10 @@ class HabitNewView(generic.CreateView):
         'public',
     ]
 
+    def dispatch(self, request):
+        if not request.user.is_authenticated:
+            return redirect('habits:index')
+
 
 def create_habit(request):
     habit = None
@@ -64,6 +68,9 @@ def create_habit(request):
 
 
 def new_event(request, habit_id):
+    if not request.user.is_authenticated:
+        return redirect('habits:detail', pk=habit_id)
+
     if request.method == 'POST':
         form = EventForm(request.POST)
 
