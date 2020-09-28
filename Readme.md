@@ -1,7 +1,7 @@
 # WABI-SABI 侘寂
 
 Wabi-Sabi is a japanese [word](https://en.wikipedia.org/wiki/Wabi-sabi) for the
-aesthetics of the seeing the beauty that is "imperfect, impermanent, and
+aesthetics of that which is "imperfect, impermanent, and
 incomplete". Here, I take this as an a interpretation of keeping habits as a
 way of trying to improve an imperfect self, where despite the work, in the end
 the results will be flawed. Despite this, it has value and crafted character.
