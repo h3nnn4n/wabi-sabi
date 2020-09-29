@@ -7,7 +7,6 @@ from .models import Habit, Event
 
 
 class HabitTests(TestCase):
-
     def test_events_relation(self):
         user = User(first_name='test', last_name='user', email='test@user.com')
         user.save()
@@ -22,7 +21,7 @@ class HabitTests(TestCase):
         self.assertTrue(len(habit.events()) == 3)
 
 
-class HabitViewTests(TestCase):
+class HabitIndexTests(TestCase):
     def setUp(self):
         user1 = User(username='test user', email='test@user.com')
         user1.save()
@@ -78,6 +77,40 @@ class HabitViewTests(TestCase):
                 '<Habit: private ninja secret training>',
             ]
         )
+
+
+class CreateHabitViewTests(TestCase):
+    def test_create_new_habit(self):
+        user = User(username='test user', email='test@user.com')
+        user.save()
+
+        self.client.force_login(user)
+
+        data = {
+            'name': 'testing habit',
+            'public': 'on'
+        }
+
+        response = self.client.post(reverse('habits:create_habit'), data)
+
+        habit = Habit.objects.order_by('-created_at')[0]
+
+        self.assertRedirects(response, reverse('habits:detail', kwargs={'pk': habit.id}))
+
+
+class HabitDetailTests(TestCase):
+    def test_view_habit(self):
+        user = User(username='test user', email='test@user.com')
+        user.save()
+
+        habit = Habit(user=user, name='testing habit', created_at=timezone.now())
+        habit.save()
+
+        self.client.force_login(user)
+
+        response = self.client.get(reverse('habits:detail', kwargs={'pk': habit.id}))
+
+        self.assertContains(response, 'testing habit')
 
 
 class NewHabitViewTests(TestCase):
