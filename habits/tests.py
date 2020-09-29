@@ -80,7 +80,7 @@ class HabitIndexTests(TestCase):
 
 
 class CreateHabitViewTests(TestCase):
-    def test_create_new_habit(self):
+    def test_create_new_public_habit(self):
         user = User(username='test user', email='test@user.com')
         user.save()
 
@@ -89,6 +89,22 @@ class CreateHabitViewTests(TestCase):
         data = {
             'name': 'testing habit',
             'public': 'on'
+        }
+
+        response = self.client.post(reverse('habits:create_habit'), data)
+
+        habit = Habit.objects.order_by('-created_at')[0]
+
+        self.assertRedirects(response, reverse('habits:detail', kwargs={'pk': habit.id}))
+
+    def test_create_new_private_habit(self):
+        user = User(username='test user', email='test@user.com')
+        user.save()
+
+        self.client.force_login(user)
+
+        data = {
+            'name': 'testing habit'
         }
 
         response = self.client.post(reverse('habits:create_habit'), data)
