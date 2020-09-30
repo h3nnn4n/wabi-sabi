@@ -153,3 +153,10 @@ class NewEventViewTests(TestCase):
         response = self.client.get(reverse('habits:new_event', kwargs={'habit_id': habit.id}))
 
         self.assertRedirects(response, reverse('habits:detail', kwargs={'pk': habit.id}))
+
+
+class RootViewTests(TestCase):
+    def test_redirect_to_index(self):
+        response = self.client.get('/')
+
+        self.assertRedirects(response, reverse('habits:index'))
