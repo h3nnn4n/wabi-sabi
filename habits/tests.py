@@ -115,18 +115,35 @@ class CreateHabitViewTests(TestCase):
 
 
 class HabitDetailTests(TestCase):
-    def test_view_habit(self):
+    user = None
+    habit = None
+
+    def setUp(self):
         user = User(username='test user', email='test@user.com')
         user.save()
 
         habit = Habit(user=user, name='testing habit', created_at=timezone.now())
         habit.save()
 
-        self.client.force_login(user)
+        self.user = user
+        self.habit = habit
 
-        response = self.client.get(reverse('habits:detail', kwargs={'pk': habit.id}))
+
+    def test_view_habit(self):
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse('habits:detail', kwargs={'pk': self.habit.id}))
 
         self.assertContains(response, 'testing habit')
+
+
+    def test_unauthorized_user_gets_redirected(self):
+        """
+        Ensure that an unauthorized user access an habit with the url
+        """
+        response = self.client.get(reverse('habits:detail', kwargs={'pk': self.habit.id}))
+
+        self.assertRedirects(response, reverse('habits:index'))
 
 
 class NewHabitViewTests(TestCase):
@@ -140,7 +157,7 @@ class NewHabitViewTests(TestCase):
 
 
 class NewEventViewTests(TestCase):
-    def test_unauthorized_user_calling_new(self):
+    def test_unauthorized_user_calling_new_on_public_habit(self):
         """
         Ensure that an unauthorized user cannot create a new habit
         """
@@ -148,11 +165,28 @@ class NewEventViewTests(TestCase):
         user.save()
 
         habit = Habit(user=user, name='testing habit', created_at=timezone.now())
+        habit.public = True
         habit.save()
 
         response = self.client.get(reverse('habits:new_event', kwargs={'habit_id': habit.id}))
 
         self.assertRedirects(response, reverse('habits:detail', kwargs={'pk': habit.id}))
+
+
+    def test_unauthorized_user_calling_new_on_private_habit(self):
+        """
+        Ensure that an unauthorized user cannot create a new habit and gets kicked back to the index if the habits is private
+        """
+        user = User(first_name='test', last_name='user', email='test@user.com')
+        user.save()
+
+        habit = Habit(user=user, name='testing habit', created_at=timezone.now())
+        habit.public = False
+        habit.save()
+
+        response = self.client.get(reverse('habits:new_event', kwargs={'habit_id': habit.id}))
+
+        self.assertRedirects(response, reverse('habits:index'))
 
 
 class RootViewTests(TestCase):

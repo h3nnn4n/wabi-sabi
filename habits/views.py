@@ -35,6 +35,15 @@ class HabitView(generic.DetailView):
     model = Habit
     template_name = 'habits/habit_detail.html'
 
+    def dispatch(self, request, *args, **kwargs):
+        if not request.user.is_authenticated:
+            habit = Habit.objects.get(pk=kwargs['pk'])
+            if not habit.public:
+                return redirect('habits:index')
+
+        # Not sure if this is a good idea or not
+        return super().dispatch(request)
+
 
 class HabitNewView(generic.CreateView):
     model = Habit
@@ -72,7 +81,12 @@ def create_habit(request):
 
 def new_event(request, habit_id):
     if not request.user.is_authenticated:
-        return redirect('habits:detail', pk=habit_id)
+        habit = Habit.objects.get(pk=habit_id)
+
+        if habit.public:
+            return redirect('habits:detail', pk=habit_id)
+        else:
+            return redirect('habits:index')
 
     habit = Habit.objects.get(pk=habit_id)
 
