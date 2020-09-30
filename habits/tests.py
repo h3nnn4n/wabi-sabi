@@ -175,7 +175,8 @@ class NewEventViewTests(TestCase):
 
     def test_unauthorized_user_calling_new_on_private_habit(self):
         """
-        Ensure that an unauthorized user cannot create a new habit and gets kicked back to the index if the habits is private
+        Ensure that an unauthorized user cannot create a new habit and gets
+        kicked back to the index if the habits is private
         """
         user = User(first_name='test', last_name='user', email='test@user.com')
         user.save()

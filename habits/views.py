@@ -85,8 +85,8 @@ def new_event(request, habit_id):
 
         if habit.public:
             return redirect('habits:detail', pk=habit_id)
-        else:
-            return redirect('habits:index')
+
+        return redirect('habits:index')
 
     habit = Habit.objects.get(pk=habit_id)
 
