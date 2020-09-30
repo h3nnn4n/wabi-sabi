@@ -54,7 +54,7 @@ jobs:
 
     - name: Install javascript dependencies
       run: |
-        yarn instal --dev
+        yarn install --dev
 
     - name: Create javascript staticfiles
       run: |
