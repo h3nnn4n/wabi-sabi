@@ -40,7 +40,7 @@ jobs:
     - name: Install pipenv
       uses: dschep/install-pipenv-action@v1
 
-    - name: Install dependencies
+    - name: Install python dependencies
       run: |
         pipenv install --dev
 
@@ -51,6 +51,10 @@ jobs:
         PSQL_PASSWORD: ${{ secrets.PSQL_PASSWORD }}
         PSQL_PORT: ${{ job.services.postgres.ports[5432] }}
       run: pipenv run python manage.py migrate
+
+    - name: Install javascript dependencies
+      run: |
+        yarn instal --dev
 
     - name: Create javascript staticfiles
       run: |
