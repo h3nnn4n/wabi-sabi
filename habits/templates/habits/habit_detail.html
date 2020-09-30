@@ -6,12 +6,11 @@
 {% block content %}
 
 <h1>
-  {{habit.name}}
+  {{habit.name}} by {{ habit.user.username }}
 </h1>
 
-Latest events:
-
 {% if habit.events %}
+Latest events:
 <ul class="list-group">
   {% for event in habit.events %}
   <li class="list-group-item">
@@ -29,14 +28,18 @@ Latest events:
   {% endfor %}
 </ul>
 {% else %}
+{% if user.is_authenticated %}
 You never did this. Why don't you do it now?
+{% else %}
+Looks like {{ habit.user.username }} never did this. Go buzz him/her to do it!
+{% endif %}
 <br>
 {% endif %}
 
 {% if user.is_authenticated %}
-  <a class="" href="{% url 'habits:new_event' habit.id  %}">
-    New Event
-  </a>
+<a class="" href="{% url 'habits:new_event' habit.id  %}">
+  New Event
+</a>
 {% endif %}
 
 {% endblock content %}

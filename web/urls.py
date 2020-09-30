@@ -16,9 +16,11 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
 
 
 urlpatterns = [
+    path('', lambda _: redirect('habits:index')),
     path('habits/', include('habits.urls')),
     path('polls/', include('polls.urls')),
     path('health/', include('health.urls')),

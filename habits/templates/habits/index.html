@@ -13,6 +13,14 @@
     <a class="" href="{% url 'habits:detail' habit.id %}" role="button">
       {{ habit.name }}
     </a>
+    {% if not user.is_authenticated %}
+    <small class="text-muted">
+      by
+      <em>
+        {{ habit.user.username }}
+      </em>
+    </small>
+    {% endif %}
   </li>
   {% endfor %}
 </ul>
