@@ -58,7 +58,7 @@ def create_habit(request):
     try:
         habit = Habit(user=request.user)
         habit.name = request.POST['name']
-        habit.public = request.POST['public'] == 'on'
+        habit.public = request.POST.get('public', 'off') == 'on'
         habit.created_at = timezone.now()
         habit.save()
     except (NotNullViolation, KeyError):
