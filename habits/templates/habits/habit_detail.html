@@ -6,7 +6,7 @@
 {% block content %}
 
 <h1>
-  {{habit.name}}
+  {{habit.name}} by {{ habit.user.username }}
 </h1>
 
 {% if habit.events %}

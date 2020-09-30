@@ -61,6 +61,27 @@ class HabitIndexTests(TestCase):
             ]
         )
 
+    def test_public_habits_shows_created_by_user(self):
+        """
+        Checks that the user that created the habit appears on the page
+        """
+        response = self.client.get(reverse('habits:index'))
+
+        self.assertContains(response, 'by')
+        self.assertContains(response, 'ninja user')
+
+    def test_private_habits_dont_show_created_by_user(self):
+        """
+        Checks that the created by doesnt appear when logged in
+        """
+        user = User.objects.get(username='test user')
+        self.client.force_login(user)
+
+        response = self.client.get(reverse('habits:index'))
+
+        self.assertNotContains(response, 'by')
+        self.assertNotContains(response, 'ninja user')
+
     def test_user_habits(self):
         """
         Check that when a user logs in, only his own habits shows up
@@ -129,12 +150,26 @@ class HabitDetailTests(TestCase):
         self.habit = habit
 
 
-    def test_view_habit(self):
+    def test_view_habit_has_habit_name(self):
+        """
+        Checks that the habit name appears in the page
+        """
         self.client.force_login(self.user)
 
         response = self.client.get(reverse('habits:detail', kwargs={'pk': self.habit.id}))
 
         self.assertContains(response, 'testing habit')
+
+
+    def test_view_habit_has_username(self):
+        """
+        Checks that the username that created the habit shows up in the page
+        """
+        self.client.force_login(self.user)
+
+        response = self.client.get(reverse('habits:detail', kwargs={'pk': self.habit.id}))
+
+        self.assertContains(response, 'test user')
 
 
     def test_unauthorized_user_gets_redirected(self):
