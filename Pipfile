@@ -14,7 +14,6 @@ gunicorn = "*"
 django-heroku = "*"
 celery = "*"
 django-widget-tweaks = "*"
-flower = "*"
 
 [requires]
 python_version = "3.7"
