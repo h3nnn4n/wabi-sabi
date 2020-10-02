@@ -1,2 +1,3 @@
 web: pipenv run python manage.py runserver
 webpack: yarn dev-server --colors
+main_worker: celery -A web worker --beat --loglevel INFO

@@ -142,7 +142,13 @@ STATICFILES_STORAGE = 'django.contrib.staticfiles.storage.ManifestStaticFilesSto
 STATIC_URL = '/static/'
 
 # Celery configs
-CELERY_BROKER_URL = 'amqp://localhost'
+BROKER_URL = os.environ.get('CLOUDAMQP_URL')
+BROKER_POOL_LIMIT = 1
+BROKER_CONNECTION_MAX_RETRIES = None
+
+CELERY_TASK_SERIALIZER = 'json'
+CELERY_ACCEPT_CONTENT = ['json', 'msgpack']
+CELERYBEAT_SCHEDULER = 'djcelery.schedulers.DatabaseScheduler'
 
 # Activate Django-Heroku
 django_heroku.settings(locals())
